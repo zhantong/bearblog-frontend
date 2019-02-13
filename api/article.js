@@ -7,8 +7,15 @@ function getList() {
     })
 }
 
+function get(number) {
+    return request({
+        url: `article/${number}`,
+        method: 'GET'
+    })
+}
+
 const ArticleService = {
-    getList
+    getList, get
 };
 
 export default ArticleService
