@@ -1,9 +1,16 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'semantic-ui-css/semantic.min.css'
+import Navbar from "./Navbar";
+import {Container} from 'semantic-ui-react'
+import React from "react";
 
-const Layout = (props) => (
-    <div>
-        {props.children}
-    </div>
+
+const TheLayout = (props) => (
+    <>
+        <Navbar/>
+        <Container style={{marginTop: '4em'}}>
+            {props.children}
+        </Container>
+    </>
 );
 
-export default Layout
+export default TheLayout
