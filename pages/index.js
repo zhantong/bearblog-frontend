@@ -1,35 +1,34 @@
 import React from 'react';
-import ArticleService from '../api/article'
+import {connect} from 'react-redux'
 import Layout from '../comps/Layout.js'
-import Card from 'react-bootstrap/Card'
-import Container from 'react-bootstrap/Container'
-import Link from 'next/link'
+import Articles from '../plugins/article/articles'
+import {requestArticleList} from '../store/actions'
+import {Grid} from 'semantic-ui-react'
 
 
-export default class Index extends React.Component {
-    static async getInitialProps() {
-        const res = await ArticleService.getList();
-        return {
-            articles: res.articles
-        };
+class Index extends React.Component {
+    static async getInitialProps({reduxStore}) {
+        await reduxStore.dispatch(requestArticleList());
+        return {};
     }
 
     render() {
         return (
             <Layout>
-                <Container>
-                    {this.props.articles.map(article =>
-                        <Card key={article.number}>
-                            <Card.Header>
-                                <Link as={`/a/${article.number}`} href={`/article?number=${article.number}`}>
-                                    <a>{article.title}</a>
-                                </Link>
-                            </Card.Header>
-                            <Card.Body>{article.bodyAbstract}</Card.Body>
-                        </Card>
-                    )}
-                </Container>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={3}>
+                        </Grid.Column>
+                        <Grid.Column width={10}>
+                            <Articles/>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </Layout>
         )
     }
 }
+
+export default connect()(Index)

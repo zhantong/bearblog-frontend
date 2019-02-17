@@ -7,7 +7,7 @@ import React from "react";
 const TheLayout = (props) => (
     <>
         <Navbar/>
-        <Container style={{marginTop: '4em'}}>
+        <Container fluid style={{marginTop: '4em'}}>
             {props.children}
         </Container>
     </>
