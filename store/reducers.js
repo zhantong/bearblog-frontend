@@ -13,10 +13,6 @@ export const reducer = (state = exampleInitialState, action) => {
                 navbarLoading: false,
                 navbar: action.navbar
             });
-        case actionTypes.REQUEST_ARTICLE_LIST:
-            return Object.assign({}, state, {
-                articles: action.articles
-            });
         default:
             return state
     }
