@@ -46,7 +46,7 @@ class Navbar extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {navbarLoading, navbar} = state;
+    const {navbarLoading, navbar} = state.reducer;
     return {navbarLoading, navbar}
 }
 
