@@ -13,6 +13,10 @@ export const reducer = (state = exampleInitialState, action) => {
                 navbarLoading: false,
                 navbar: action.navbar
             });
+        case actionTypes.CONFIG_WIDGETS:
+            return Object.assign({}, state, {
+                widgets: action.widgets,
+            });
         default:
             return state
     }

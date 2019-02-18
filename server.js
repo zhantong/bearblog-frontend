@@ -12,8 +12,18 @@ app.prepare()
 
         server.get('/a/:number', (req, res) => {
             const queryParams = {number: req.params.number};
-            console.log(queryParams);
             return app.render(req.req, res.res, '/article', queryParams)
+        });
+        server.get('/', (req, res) => {
+            const queryParams = {
+                widgets: {
+                    main: {
+                        pluginName: 'article',
+                        widgetName: 'articles'
+                    }
+                }
+            };
+            return app.render(req.req, res.res, '/index', queryParams)
         });
 
         server.get('/*', (req, res) => {

@@ -10,3 +10,8 @@ export const requestNavbar = () => async dispatch => {
     });
     dispatch({type: actionTypes.RECEIVE_NAVBAR, navbar: res})
 };
+
+
+export const configWidgets = (widgets) => async dispatch => {
+    dispatch({type: actionTypes.CONFIG_WIDGETS, widgets: widgets})
+};

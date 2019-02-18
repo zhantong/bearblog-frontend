@@ -1,18 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import Layout from '../comps/Layout.js'
-import Articles from '../plugins/article/articles'
-import {requestArticleList} from '../store/actions'
+import {configWidgets} from '../store/actions'
 import {Grid} from 'semantic-ui-react'
+import widgets from '../widgets'
 
 
 class Index extends React.Component {
-    static async getInitialProps({reduxStore}) {
-        await reduxStore.dispatch(requestArticleList());
+    static async getInitialProps(props) {
+        const mainWidget = props.query.widgets.main;
+        await widgets[mainWidget.pluginName][mainWidget.widgetName].widget.getInitialProps(props);
+        await props.reduxStore.dispatch(configWidgets(props.query.widgets));
         return {};
     }
 
     render() {
+        if (!this.props.widgets) {
+            return null;
+        }
+        const mainWidgetProps = this.props.widgets.main;
+        const MainWidget = widgets[mainWidgetProps.pluginName][mainWidgetProps.widgetName].widget;
         return (
             <Layout>
                 <Grid>
@@ -20,7 +27,7 @@ class Index extends React.Component {
                         <Grid.Column width={3}>
                         </Grid.Column>
                         <Grid.Column width={10}>
-                            <Articles/>
+                            <MainWidget/>
                         </Grid.Column>
                         <Grid.Column width={3}>
                         </Grid.Column>
@@ -31,4 +38,9 @@ class Index extends React.Component {
     }
 }
 
-export default connect()(Index)
+function mapStateToProps(state) {
+    const {widgets} = state.reducer;
+    return {widgets}
+}
+
+export default connect(mapStateToProps)(Index)
