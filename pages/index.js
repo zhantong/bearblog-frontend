@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 import Layout from '../comps/Layout.js'
 import {configWidgets} from '../store/actions'
 import {Grid} from 'semantic-ui-react'
-import widgets from '../widgets'
+import widgets, {getWidgetsProp} from '../widgets'
 
 
 class Index extends React.Component {
     static async getInitialProps(props) {
-        const mainWidget = props.query.widgets.main;
-        await widgets[mainWidget.pluginName][mainWidget.widgetName].widget.getInitialProps(props);
-        await props.reduxStore.dispatch(configWidgets(props.query.widgets));
+        const widgetsProp = getWidgetsProp(props.query._type);
+        await widgets[widgetsProp.main.pluginName][widgetsProp.main.widgetName].widget.getInitialProps(props);
+        await props.reduxStore.dispatch(configWidgets(widgetsProp));
         return {};
     }
 

@@ -11,18 +11,11 @@ app.prepare()
         const server = fastify();
 
         server.get('/a/:number', (req, res) => {
-            const queryParams = {number: req.params.number};
-            return app.render(req.req, res.res, '/article', queryParams)
-        });
-        server.get('/', (req, res) => {
             const queryParams = {
-                widgets: {
-                    main: {
-                        pluginName: 'article',
-                        widgetName: 'articles'
-                    }
-                }
+                _type: 'article',
+                number: req.params.number
             };
+
             return app.render(req.req, res.res, '/index', queryParams)
         });
 
