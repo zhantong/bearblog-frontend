@@ -20,6 +20,9 @@ class Index extends React.Component {
         }
         const mainWidgetProps = this.props.widgets.main;
         const MainWidget = widgets[mainWidgetProps.pluginName][mainWidgetProps.widgetName].widget;
+        const RightWidgets = this.props.widgets.right.map(widgetProps => {
+            return widgets[widgetProps.pluginName][widgetProps.widgetName].widget
+        });
         return (
             <Layout>
                 <Grid>
@@ -30,6 +33,9 @@ class Index extends React.Component {
                             <MainWidget/>
                         </Grid.Column>
                         <Grid.Column width={3}>
+                            {RightWidgets.map(Widget =>
+                                <Widget/>
+                            )}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
