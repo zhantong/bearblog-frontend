@@ -28,4 +28,11 @@ function mapStateToProps(state) {
     return {article}
 }
 
+export function buildArticleUrl(number) {
+    return {
+        as: `/a/${number}`,
+        href: `/index?_type=article&number=${number}`
+    }
+}
+
 export default connect(mapStateToProps)(Article)
