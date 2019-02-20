@@ -2,31 +2,28 @@ import React from "react";
 import {connect} from "react-redux";
 import {requestNavbar} from "../store/actions";
 import {Menu, Container, Placeholder} from 'semantic-ui-react'
+import Link from 'next/link'
+import {buildPageUrl} from "../plugins/page/page";
 
 
 class Navbar extends React.Component {
     async componentDidMount() {
-        if (!this.props.navbar) {
+        if (!this.props.pages) {
             const {dispatch} = this.props;
             await dispatch(requestNavbar());
         }
     }
 
     render() {
-        const {navbarLoading = true, navbar} = this.props;
+        const {navbarLoading = true, pages} = this.props;
 
         return (
             <Menu fixed='top'>
-                <Menu.Item>
-                    {navbarLoading ? (
-                            <Placeholder>
-                                <Placeholder.Header image>
-                                </Placeholder.Header>
-                            </Placeholder>
-                        ) :
-                        navbar.brand
-                    }
-                </Menu.Item>
+                <Link href='/' passHref>
+                    <Menu.Item>
+                        BearBlog
+                    </Menu.Item>
+                </Link>
                 <Container>
                     {navbarLoading ? (
                             <Menu.Item>
@@ -36,8 +33,8 @@ class Navbar extends React.Component {
                                 </Placeholder>
                             </Menu.Item>
                         ) :
-                        navbar.items.map(item =>
-                            <Menu.Item as='a'>{item.name}</Menu.Item>
+                        pages.map(page =>
+                            <Item page={page}/>
                         )}
                 </Container>
             </Menu>
@@ -45,9 +42,23 @@ class Navbar extends React.Component {
     }
 }
 
+const Item = ({page}) => {
+    if (!page) {
+        return null;
+    }
+    const pageUrl = buildPageUrl(page.slug);
+    return (
+        <Link as={pageUrl.as} href={pageUrl.href} passHref>
+            <Menu.Item>
+                {page.title}
+            </Menu.Item>
+        </Link>
+    )
+};
+
 function mapStateToProps(state) {
-    const {navbarLoading, navbar} = state.reducer;
-    return {navbarLoading, navbar}
+    const {navbarLoading, pages} = state.reducer;
+    return {navbarLoading, pages}
 }
 
 export default connect(mapStateToProps)(Navbar)

@@ -11,7 +11,7 @@ export const reducer = (state = exampleInitialState, action) => {
         case actionTypes.RECEIVE_NAVBAR:
             return Object.assign({}, state, {
                 navbarLoading: false,
-                navbar: action.navbar
+                pages: action.pages
             });
         case actionTypes.CONFIG_WIDGETS:
             return Object.assign({}, state, {
