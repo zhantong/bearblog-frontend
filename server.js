@@ -19,6 +19,14 @@ app.prepare()
             return app.render(req.req, res.res, '/index', queryParams)
         });
 
+        server.get('/category/:slug', (req, res) => {
+            const queryParams = {
+                category: req.params.slug
+            };
+
+            return app.render(req.req, res.res, '/index', queryParams)
+        });
+
         server.get('/*', (req, res) => {
             return handle(req.req, res.res)
         });

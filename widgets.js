@@ -4,6 +4,8 @@ import Article from './plugins/article/article'
 import {reducer as articleReducer} from './plugins/article/article/store'
 import LatestComments from './plugins/comment/latestComments'
 import {reducer as latestCommentsReducer} from './plugins/comment/latestComments/store'
+import Categories from './plugins/category/categories'
+import {reducer as categoriesReducer} from './plugins/category/categories/store'
 
 const widgets = {
     article: {
@@ -21,6 +23,12 @@ const widgets = {
             widget: LatestComments,
             reducer: latestCommentsReducer
         }
+    },
+    category: {
+        categories: {
+            widget: Categories,
+            reducer: categoriesReducer
+        }
     }
 };
 
@@ -32,6 +40,7 @@ export function getWidgetsProp(type) {
                     pluginName: 'article',
                     widgetName: 'article'
                 },
+                left: [],
                 right: [
                     {
                         pluginName: 'comment',
@@ -45,6 +54,12 @@ export function getWidgetsProp(type) {
                     pluginName: 'article',
                     widgetName: 'articles'
                 },
+                left: [
+                    {
+                        pluginName: 'category',
+                        widgetName: 'categories'
+                    }
+                ],
                 right: [
                     {
                         pluginName: 'comment',
