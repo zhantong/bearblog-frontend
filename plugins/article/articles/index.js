@@ -4,8 +4,8 @@ import Item from './Item'
 import {requestArticleList} from "./store";
 
 class Articles extends React.Component {
-    static async getInitialProps({reduxStore}) {
-        await reduxStore.dispatch(requestArticleList());
+    static async getInitialProps({reduxStore, query}) {
+        await reduxStore.dispatch(requestArticleList(query));
         return {};
     }
 

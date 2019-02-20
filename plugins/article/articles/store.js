@@ -20,11 +20,12 @@ export const reducer = (state = {}, action) => {
 
 // ACTIONS
 
-export const requestArticleList = () => async dispatch => {
+export const requestArticleList = (query) => async dispatch => {
     dispatch({type: actionTypes.REQUEST_ARTICLE_LIST});
     const res = await request({
         url: 'articles',
-        method: 'GET'
+        method: 'GET',
+        params: query
     });
     dispatch({type: actionTypes.RECEIVE_ARTICLE_LIST, articles: res.articles})
 };
