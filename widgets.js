@@ -6,6 +6,8 @@ import LatestComments from './plugins/comment/latestComments'
 import {reducer as latestCommentsReducer} from './plugins/comment/latestComments/store'
 import Categories from './plugins/category/categories'
 import {reducer as categoriesReducer} from './plugins/category/categories/store'
+import Page from './plugins/page/page'
+import {reducer as pageReducer} from './plugins/page/page/store'
 
 const widgets = {
     article: {
@@ -29,6 +31,12 @@ const widgets = {
             widget: Categories,
             reducer: categoriesReducer
         }
+    },
+    page: {
+        page: {
+            widget: Page,
+            reducer: pageReducer
+        }
     }
 };
 
@@ -39,6 +47,20 @@ export function getWidgetsProp(type) {
                 main: {
                     pluginName: 'article',
                     widgetName: 'article'
+                },
+                left: [],
+                right: [
+                    {
+                        pluginName: 'comment',
+                        widgetName: 'latestComments'
+                    }
+                ]
+            };
+        case 'page':
+            return {
+                main: {
+                    pluginName: 'page',
+                    widgetName: 'page'
                 },
                 left: [],
                 right: [
