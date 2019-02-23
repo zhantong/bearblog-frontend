@@ -4,6 +4,7 @@ import Layout from '../comps/Layout.js'
 import {configWidgets} from '../store/actions'
 import {Grid} from 'semantic-ui-react'
 import widgets, {getWidgetsProp} from '../widgets'
+import StickyBox from "react-sticky-box";
 
 
 class Index extends React.Component {
@@ -31,9 +32,11 @@ class Index extends React.Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={3}>
-                            {LeftWidgets.map(Widget =>
-                                <Widget/>
-                            )}
+                            <StickyBox offsetTop={54}>
+                                {LeftWidgets.map(Widget =>
+                                    <Widget/>
+                                )}
+                            </StickyBox>
                         </Grid.Column>
                         <Grid.Column width={10}>
                             <MainWidget/>
