@@ -29,7 +29,7 @@ class Index extends React.Component {
         });
         return (
             <Layout>
-                <Grid>
+                <Grid padded='horizontally'>
                     <Grid.Row>
                         <Grid.Column width={3}>
                             <StickyBox offsetTop={54}>
