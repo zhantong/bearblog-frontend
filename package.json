@@ -25,6 +25,7 @@
     "axios": "^0.18.0",
     "fastify": "^1.14.1",
     "file-loader": "^3.0.1",
+    "highlight.js": "^9.14.2",
     "next": "^8.0.0",
     "patch-package": "^6.0.2",
     "react": "^16.8.1",

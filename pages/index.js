@@ -5,6 +5,8 @@ import {configWidgets} from '../store/actions'
 import {Grid} from 'semantic-ui-react'
 import widgets, {getWidgetsProp} from '../widgets'
 import StickyBox from "react-sticky-box";
+import hljs from "highlight.js";
+import 'highlight.js/styles/default.css'
 
 
 class Index extends React.Component {
@@ -13,6 +15,16 @@ class Index extends React.Component {
         await widgets[widgetsProp.main.pluginName][widgetsProp.main.widgetName].widget.getInitialProps(props);
         await props.reduxStore.dispatch(configWidgets(widgetsProp));
         return {};
+    }
+
+    componentDidMount() {
+        hljs.initHighlighting.called = false;
+        hljs.initHighlighting();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        hljs.initHighlighting.called = false;
+        hljs.initHighlighting();
     }
 
     render() {
