@@ -8,6 +8,7 @@ import Categories from './plugins/category/categories'
 import {reducer as categoriesReducer} from './plugins/category/categories/store'
 import Page from './plugins/page/page'
 import {reducer as pageReducer} from './plugins/page/page/store'
+import Toc from './plugins/toc/toc'
 
 const widgets = {
     article: {
@@ -37,6 +38,11 @@ const widgets = {
             widget: Page,
             reducer: pageReducer
         }
+    },
+    toc: {
+        toc: {
+            widget: Toc
+        }
     }
 };
 
@@ -48,7 +54,12 @@ export function getWidgetsProp(type) {
                     pluginName: 'article',
                     widgetName: 'article'
                 },
-                left: [],
+                left: [
+                    {
+                        pluginName: 'toc',
+                        widgetName: 'toc'
+                    }
+                ],
                 right: [
                     {
                         pluginName: 'comment',
