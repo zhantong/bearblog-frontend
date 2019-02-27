@@ -39,6 +39,9 @@ class Index extends React.Component {
         const RightWidgets = this.props.widgets.right.map(widgetProps => {
             return widgets[widgetProps.pluginName][widgetProps.widgetName].widget
         });
+        const MainBottomWidgets = this.props.widgets.mainBottom.map(widgetProps => {
+            return widgets[widgetProps.pluginName][widgetProps.widgetName].widget
+        });
         return (
             <Layout>
                 <Grid padded='horizontally'>
@@ -52,6 +55,9 @@ class Index extends React.Component {
                         </Grid.Column>
                         <Grid.Column width={10}>
                             <MainWidget/>
+                            {MainBottomWidgets.map(Widget =>
+                                <Widget/>
+                            )}
                         </Grid.Column>
                         <Grid.Column width={3}>
                             {RightWidgets.map(Widget =>

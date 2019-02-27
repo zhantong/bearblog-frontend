@@ -9,6 +9,8 @@ import {reducer as categoriesReducer} from './plugins/category/categories/store'
 import Page from './plugins/page/page'
 import {reducer as pageReducer} from './plugins/page/page/store'
 import Toc from './plugins/toc/toc'
+import Comments from './plugins/comment/comments'
+import {reducer as commentsReducer} from './plugins/comment/comments/store'
 
 const widgets = {
     article: {
@@ -25,6 +27,10 @@ const widgets = {
         latestComments: {
             widget: LatestComments,
             reducer: latestCommentsReducer
+        },
+        comments: {
+            widget: Comments,
+            reducer: commentsReducer
         }
     },
     category: {
@@ -65,6 +71,12 @@ export function getWidgetsProp(type) {
                         pluginName: 'comment',
                         widgetName: 'latestComments'
                     }
+                ],
+                mainBottom: [
+                    {
+                        pluginName: 'comment',
+                        widgetName: 'comments'
+                    }
                 ]
             };
         case 'page':
@@ -79,7 +91,8 @@ export function getWidgetsProp(type) {
                         pluginName: 'comment',
                         widgetName: 'latestComments'
                     }
-                ]
+                ],
+                mainBottom: []
             };
         default:
             return {
@@ -98,7 +111,8 @@ export function getWidgetsProp(type) {
                         pluginName: 'comment',
                         widgetName: 'latestComments'
                     }
-                ]
+                ],
+                mainBottom: []
             }
     }
 }
