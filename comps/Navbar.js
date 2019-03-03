@@ -20,9 +20,7 @@ class Navbar extends React.Component {
         return (
             <Menu fixed='top'>
                 <Link href='/' passHref>
-                    <Menu.Item>
-                        BearBlog
-                    </Menu.Item>
+                    <Menu.Item name="BearBlog"/>
                 </Link>
                 <Container>
                     {navbarLoading ? (
@@ -49,9 +47,7 @@ const Item = ({page}) => {
     const pageUrl = buildPageUrl(page.slug);
     return (
         <Link as={pageUrl.as} href={pageUrl.href} passHref>
-            <Menu.Item>
-                {page.title}
-            </Menu.Item>
+            <Menu.Item name={page.title}/>
         </Link>
     )
 };
