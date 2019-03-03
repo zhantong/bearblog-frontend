@@ -2,6 +2,9 @@ import App, {Container} from 'next/app'
 import React from 'react'
 import withReduxStore from '../lib/with-redux-store'
 import {Provider} from 'react-redux'
+import Moment from 'react-moment';
+
+Moment.globalLocale = 'zh-cn';
 
 class MyApp extends App {
     render() {
