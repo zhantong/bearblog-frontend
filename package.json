@@ -37,7 +37,6 @@
     "react-html-parser": "^2.0.2",
     "react-moment": "^0.8.4",
     "react-redux": "^6.0.0",
-    "react-sticky-box": "^0.8.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",

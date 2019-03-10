@@ -2,9 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux'
 import Layout from '../comps/Layout.js'
 import {configWidgets} from '../store/actions'
-import {Row, Col} from 'antd';
+import {Row, Col, Affix} from 'antd';
 import widgets, {getWidgetsProp} from '../widgets'
-import StickyBox from "react-sticky-box";
 import hljs from "highlight.js";
 import 'highlight.js/styles/default.css'
 
@@ -46,11 +45,11 @@ class Index extends React.Component {
             <Layout>
                 <Row type="flex">
                     <Col span={4}>
-                        <StickyBox offsetTop={64}>
+                        <Affix>
                             {LeftWidgets.map(Widget =>
                                 <Widget/>
                             )}
-                        </StickyBox>
+                        </Affix>
                     </Col>
                     <Col span={16}>
                         <MainWidget/>
