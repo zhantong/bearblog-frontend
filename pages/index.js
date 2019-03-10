@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import Layout from '../comps/Layout.js'
 import {configWidgets} from '../store/actions'
-import {Grid} from 'semantic-ui-react'
+import {Row, Col} from 'antd';
 import widgets, {getWidgetsProp} from '../widgets'
 import StickyBox from "react-sticky-box";
 import hljs from "highlight.js";
@@ -44,28 +44,26 @@ class Index extends React.Component {
         });
         return (
             <Layout>
-                <Grid padded='horizontally'>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <StickyBox offsetTop={54}>
-                                {LeftWidgets.map(Widget =>
-                                    <Widget/>
-                                )}
-                            </StickyBox>
-                        </Grid.Column>
-                        <Grid.Column width={10}>
-                            <MainWidget/>
-                            {MainBottomWidgets.map(Widget =>
+                <Row type="flex">
+                    <Col span={4}>
+                        <StickyBox offsetTop={64}>
+                            {LeftWidgets.map(Widget =>
                                 <Widget/>
                             )}
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            {RightWidgets.map(Widget =>
-                                <Widget/>
-                            )}
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                        </StickyBox>
+                    </Col>
+                    <Col span={16}>
+                        <MainWidget/>
+                        {MainBottomWidgets.map(Widget =>
+                            <Widget/>
+                        )}
+                    </Col>
+                    <Col span={4}>
+                        {RightWidgets.map(Widget =>
+                            <Widget/>
+                        )}
+                    </Col>
+                </Row>
             </Layout>
         )
     }

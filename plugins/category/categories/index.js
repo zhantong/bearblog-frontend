@@ -1,8 +1,8 @@
 import React from "react";
 import {requestCategories} from "./store";
 import {connect} from "react-redux";
-import {Card, Menu} from "semantic-ui-react";
-import Item from './item'
+import {Collapse, List, Badge} from 'antd'
+import Link from 'next/link'
 
 class Categories extends React.Component {
 
@@ -16,20 +16,25 @@ class Categories extends React.Component {
         }
 
         return (
-            <Card>
-                <Card.Content>
-                    <Card.Header>
-                        分类
-                    </Card.Header>
-                </Card.Content>
-                <Card.Content style={{padding: 0}}>
-                    <Menu fluid vertical style={{border: 0}}>
-                        {this.props.categories.map(category =>
-                            <Item category={category}/>
+            <Collapse defaultActiveKey={['1']}>
+                <Collapse.Panel header='分类' key='1'>
+                    <List
+                        dataSource={this.props.categories}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    title={
+                                        <Link as={`/category/${item.slug}`} href={`/index?category=${item.slug}`}>
+                                            <a>{item.name}</a>
+                                        </Link>
+                                    }
+                                />
+                                <Badge count={item.articleCount}/>
+                            </List.Item>
                         )}
-                    </Menu>
-                </Card.Content>
-            </Card>
+                    />
+                </Collapse.Panel>
+            </Collapse>
         )
     }
 }

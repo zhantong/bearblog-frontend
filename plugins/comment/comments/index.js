@@ -1,7 +1,7 @@
 import React from "react";
 import {requestComments, toggleReply, submitReply} from "./store";
 import {connect} from "react-redux";
-import {Comment, Header} from "semantic-ui-react";
+import {Comment} from "antd";
 import ReplyForm from './ReplyForm'
 
 class Comments extends React.Component {
@@ -23,37 +23,32 @@ class Comments extends React.Component {
         }
     }
 
+    reply = (commentId) => {
+        this.props.toggleReply(commentId)
+    };
+
     submitReply(values) {
-        console.log(this.props.replyCommentId);
-        console.log(values);
         this.props.submitReply(this.props.article.number, values.name, values.email, values.content, this.props.replyCommentId)
     }
 
-    renderComments(comments) {
+    renderComments(comments, replyCommentId) {
         return (
             <>
                 {comments.map(comment =>
-                    <Comment>
-                        <Comment.Content>
-                            <Comment.Author style={{fontSize: '1.5em'}}>{comment.comment.author.name}</Comment.Author>
-                            <Comment.Metadata>
-                                <div>{comment.comment.timestamp}</div>
-                            </Comment.Metadata>
-                            <Comment.Text>
-                                {comment.comment.bodyHtml}
-                            </Comment.Text>
-                            <Comment.Actions>
-                                <button onClick={() => this.props.toggleReply(comment.comment.id)}>回复</button>
-                            </Comment.Actions>
-                            {this.props.replyCommentId === comment.comment.id &&
+                    <>
+                        <Comment
+                            actions={[<span onClick={() => this.reply(comment.comment.id)}>回复</span>]}
+                            author={comment.comment.author.name}
+                            content={<div dangerouslySetInnerHTML={{__html: comment.comment.bodyHtml}}/>}
+                            datetime={comment.comment.timestamp}
+                        >
+                            {replyCommentId === comment.comment.id &&
                             <ReplyForm onSubmit={this.submitReply}/>}
-                        </Comment.Content>
-                        {comment.children.length > 0 &&
-                        <Comment.Group>
-                            {this.renderComments(comment.children)}
-                        </Comment.Group>
-                        }
-                    </Comment>
+                            {comment.children.length > 0 &&
+                            this.renderComments(comment.children, replyCommentId)
+                            }
+                        </Comment>
+                    </>
                 )}
             </>
         )
@@ -64,14 +59,11 @@ class Comments extends React.Component {
         const {comments = [], replyCommentId = null} = this.props;
 
         return (
-            <Comment.Group minimal>
-                <Header as='h3' dividing>
-                    评论
-                </Header>
-                {this.renderComments(comments)}
+            <>
+                {this.renderComments(comments, replyCommentId)}
                 {replyCommentId === null &&
                 <ReplyForm onSubmit={this.submitReply}/>}
-            </Comment.Group>
+            </>
         )
     }
 }

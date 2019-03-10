@@ -1,8 +1,9 @@
 import React from "react";
 import {requestLatestComments} from "./store";
 import {connect} from "react-redux";
-import {Card, Feed} from "semantic-ui-react";
-import Item from './item'
+import {Collapse, List} from 'antd'
+import {buildArticleUrl} from "../../article/article";
+import Link from 'next/link'
 
 class LatestComments extends React.Component {
 
@@ -16,21 +17,29 @@ class LatestComments extends React.Component {
         }
 
         return (
-            <Card>
-                <Card.Content>
-                    <Card.Header>
-                        最近评论
-                    </Card.Header>
-                </Card.Content>
-                <Card.Content>
-                    <Feed>
-                        {this.props.latestComments.map(comment =>
-                            <Item comment={comment}/>
-                        )}
-                    </Feed>
-
-                </Card.Content>
-            </Card>
+            <Collapse defaultActiveKey={['1']}>
+                <Collapse.Panel header='最近评论' key='1'>
+                    <List
+                        dataSource={this.props.latestComments}
+                        renderItem={item => {
+                            const articleUrl = buildArticleUrl(item.to.number);
+                            return <List.Item>
+                                <List.Item.Meta
+                                    title={
+                                        <>
+                                            {item.author.name}
+                                            评论了
+                                            <Link as={articleUrl.as}
+                                                  href={articleUrl.href}><a>《{item.to.title}》</a></Link>
+                                        </>
+                                    }
+                                    description={item.body_html}
+                                />
+                            </List.Item>
+                        }}
+                    />
+                </Collapse.Panel>
+            </Collapse>
         )
     }
 }

@@ -1,39 +1,46 @@
 import React from "react";
 import {connect} from 'react-redux'
-import tocbot from 'tocbot'
 
-import {Card} from "semantic-ui-react";
+import {Collapse, Anchor} from 'antd'
 
 class Toc extends React.Component {
-
-    componentDidMount() {
-        tocbot.init({
-            tocSelector: '#card-toc',
-            contentSelector: 'article',
-            headingSelector: 'h1, h2, h3',
-            headingsOffset: 56,
-            collapseDepth: 3,
-            listClass: 'ui list link',
-            linkClass: 'item',
-            activeLinkClass: 'active'
-        })
+    constructor(props) {
+        super(props);
+        this.renderItem = this.renderItem.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        tocbot.refresh();
+    renderItem(item) {
+        return (
+            <Anchor.Link href={'#' + item.id} title={item.textContent}>
+                {item.children.map(child => {
+                    return this.renderItem(child)
+                })}
+            </Anchor.Link>
+        )
     }
 
     render() {
+        const options = {
+            contentSelector: 'article',
+            headingSelector: 'h1, h2, h3'
+        };
+        const ParseContent = require('tocbot/src/js/parse-content.js');
+        const parseContent = ParseContent(options);
+        const headingsArray = parseContent.selectHeadings(options.contentSelector, options.headingSelector);
+        if (headingsArray === null) {
+            return null;
+        }
+        const nestedHeadingsObj = parseContent.nestHeadingsArray(headingsArray);
         return (
-            <Card>
-                <Card.Content>
-                    <Card.Header>
-                        目录
-                    </Card.Header>
-                </Card.Content>
-                <Card.Content id="card-toc">
-                </Card.Content>
-            </Card>
+            <Collapse defaultActiveKey={['1']}>
+                <Collapse.Panel header='目录' key='1'>
+                    <Anchor offsetTop={64}>
+                        {nestedHeadingsObj.nest.map(item => {
+                            return this.renderItem(item);
+                        })}
+                    </Anchor>
+                </Collapse.Panel>
+            </Collapse>
         )
     }
 }
