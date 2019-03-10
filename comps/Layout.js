@@ -5,11 +5,11 @@ import React from "react";
 
 
 const TheLayout = (props) => (
-    <Layout>
+    <Layout className="ant-layout-has-sider">
         <Navbar/>
-        <Layout.Content style={{marginTop: 64}}>
+        <Layout>
             {props.children}
-        </Layout.Content>
+        </Layout>
     </Layout>
 );
 

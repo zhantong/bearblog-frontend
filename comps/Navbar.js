@@ -1,12 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
 import {requestNavbar} from "../store/actions";
-import {Layout, Menu} from 'antd';
+import {Layout, Menu, Icon} from 'antd';
 import Link from 'next/link'
 import {buildPageUrl} from "../plugins/page/page";
 
 
 class Navbar extends React.Component {
+    state = {
+        collapsed: true,
+    };
+
+    onCollapse = (collapsed) => {
+        this.setState({collapsed});
+    };
+
     async componentDidMount() {
         if (!this.props.pages) {
             const {dispatch} = this.props;
@@ -18,22 +26,28 @@ class Navbar extends React.Component {
         const {pages = []} = this.props;
 
         return (
-            <Layout.Header style={{position: 'fixed', zIndex: 1, width: '100%'}}>
+            <Layout.Sider
+                collapsible
+                collapsed={this.state.collapsed}
+                onCollapse={this.onCollapse}
+            >
                 <Menu
                     theme="dark"
-                    mode="horizontal"
-                    style={{lineHeight: '64px'}}
+                    mode="inline"
                 >
                     {pages.map(page => {
                         const pageUrl = buildPageUrl(page.slug);
                         return <Menu.Item>
                             <Link as={pageUrl.as} href={pageUrl.href} passHref>
-                                <a>{page.title}</a>
+                                <a>
+                                    <Icon type="pie-chart"/>
+                                    <span>{page.title}</span>
+                                </a>
                             </Link>
                         </Menu.Item>
                     })}
                 </Menu>
-            </Layout.Header>
+            </Layout.Sider>
         )
     }
 }
