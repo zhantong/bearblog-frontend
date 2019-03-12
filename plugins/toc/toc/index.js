@@ -22,7 +22,7 @@ class Toc extends React.Component {
     render() {
         const options = {
             contentSelector: 'article',
-            headingSelector: 'h1, h2, h3'
+            headingSelector: 'h2, h3'
         };
         const ParseContent = require('tocbot/src/js/parse-content.js');
         const parseContent = ParseContent(options);
@@ -34,7 +34,7 @@ class Toc extends React.Component {
         return (
             <Collapse defaultActiveKey={['1']}>
                 <Collapse.Panel header='目录' key='1'>
-                    <Anchor offsetTop={64}>
+                    <Anchor affix={false}>
                         {nestedHeadingsObj.nest.map(item => {
                             return this.renderItem(item);
                         })}
