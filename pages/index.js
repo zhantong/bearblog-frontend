@@ -43,7 +43,7 @@ class Index extends React.Component {
         });
         return (
             <Layout>
-                <Row type="flex">
+                <Row type="flex" gutter={8}>
                     <Col span={4}>
                         <Affix>
                             {LeftWidgets.map(Widget =>

@@ -7,9 +7,9 @@ import React from "react";
 const TheLayout = (props) => (
     <Layout>
         <Navbar/>
-        <Layout>
+        <Layout.Content  style={{ margin: '0 8px' }}>
             {props.children}
-        </Layout>
+        </Layout.Content>
     </Layout>
 );
 
