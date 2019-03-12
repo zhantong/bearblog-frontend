@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {requestNavbar} from "../store/actions";
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu} from 'antd';
 import Link from 'next/link'
 import {buildPageUrl} from "../plugins/page/page";
 
@@ -26,28 +26,24 @@ class Navbar extends React.Component {
         const {pages = []} = this.props;
 
         return (
-            <Layout.Sider
-                collapsible
-                collapsed={this.state.collapsed}
-                onCollapse={this.onCollapse}
-            >
+            <Layout.Header theme="light">
                 <Menu
+                    mode="horizontal"
                     theme="dark"
-                    mode="inline"
+                    style={{lineHeight: '64px'}}
                 >
                     {pages.map(page => {
                         const pageUrl = buildPageUrl(page.slug);
-                        return <Menu.Item>
+                        return (<Menu.Item>
                             <Link as={pageUrl.as} href={pageUrl.href} passHref>
                                 <a>
-                                    <Icon type="pie-chart"/>
-                                    <span>{page.title}</span>
+                                    {page.title}
                                 </a>
                             </Link>
-                        </Menu.Item>
+                        </Menu.Item>)
                     })}
                 </Menu>
-            </Layout.Sider>
+            </Layout.Header>
         )
     }
 }

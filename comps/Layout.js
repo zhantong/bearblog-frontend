@@ -5,7 +5,7 @@ import React from "react";
 
 
 const TheLayout = (props) => (
-    <Layout className="ant-layout-has-sider">
+    <Layout>
         <Navbar/>
         <Layout>
             {props.children}
