@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux'
 import {requestArticle} from "./store";
+import {Typography, Card} from 'antd';
 
 class Article extends React.Component {
     static async getInitialProps({query, reduxStore}) {
@@ -14,11 +15,15 @@ class Article extends React.Component {
             return null;
         }
         return (
-            <>
-                <h1>{this.props.article.title}</h1>
-                <article dangerouslySetInnerHTML={{__html: this.props.article.bodyHtml}}>
-                </article>
-            </>
+            <Card>
+                <Typography>
+                    <Typography.Title>
+                        {this.props.article.title}
+                    </Typography.Title>
+                    <div dangerouslySetInnerHTML={{__html: this.props.article.bodyHtml}}>
+                    </div>
+                </Typography>
+            </Card>
         )
     }
 }
