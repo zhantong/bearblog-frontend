@@ -4,6 +4,20 @@ import {requestArticle} from "./store";
 import {Typography, Card, Icon, Row, Col, Tag, Divider} from 'antd';
 import ReactMarkdown from 'react-markdown'
 
+function flatten(text, child) {
+    return typeof child === 'string'
+        ? text + child
+        : React.Children.toArray(child.props.children).reduce(flatten, text)
+}
+
+function HeadingRenderer(props) {
+    const children = React.Children.toArray(props.children);
+    const text = children.reduce(flatten, '');
+    const slug = text
+        .replace(/\s+/g, '-');
+    return React.createElement('h' + props.level, {id: slug}, props.children)
+}
+
 class Article extends React.Component {
     static async getInitialProps({query, reduxStore}) {
         const {number} = query;
@@ -30,6 +44,9 @@ class Article extends React.Component {
                     <Divider/>
                     <ReactMarkdown
                         source={this.props.article.body}
+                        renderers={{
+                            heading: HeadingRenderer
+                        }}
                     />
                 </Typography>
             </Card>
