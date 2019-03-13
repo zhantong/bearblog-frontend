@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux'
 import {requestArticle} from "./store";
-import {Typography, Card} from 'antd';
+import {Typography, Card, Icon, Row, Col, Tag, Divider} from 'antd';
 
 class Article extends React.Component {
     static async getInitialProps({query, reduxStore}) {
@@ -20,6 +20,13 @@ class Article extends React.Component {
                     <Typography.Title>
                         {this.props.article.title}
                     </Typography.Title>
+                    <Row justify="space-between">
+                        {this.props.article.meta.map(meta =>
+                            <Col span={24 / this.props.article.meta.length}>
+                                <Meta meta={meta}/>
+                            </Col>)}
+                    </Row>
+                    <Divider/>
                     <div dangerouslySetInnerHTML={{__html: this.props.article.bodyHtml}}>
                     </div>
                 </Typography>
@@ -27,6 +34,53 @@ class Article extends React.Component {
         )
     }
 }
+
+const IconText = (props) => (
+    <span>
+    <Icon type={props.type} style={{marginRight: 8}}/>
+        {props.children}
+  </span>
+);
+
+const Meta = ({meta}) => {
+    if (meta.slug === 'category') {
+        return (
+            <>
+                {meta.value.map(category =>
+                    <IconText type='folder-open'>
+                        {category.name}
+                    </IconText>
+                )}
+            </>
+        )
+    }
+    if (meta.slug === 'view_count') {
+        return (
+            <IconText type='heart'>
+                {meta.value}
+            </IconText>
+        )
+    }
+    if (meta.slug === 'comment') {
+        return (
+            <IconText type='message'>
+                {meta.value}
+            </IconText>
+        )
+    }
+    if (meta.slug === 'tag') {
+        return (
+            <IconText type='tag'>
+                {meta.value.map(tag =>
+                    <Tag>
+                        {tag.name}
+                    </Tag>
+                )}
+            </IconText>
+        )
+    }
+    return null
+};
 
 function mapStateToProps(state) {
     const {article} = state.article;
