@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from 'react-redux'
 import {requestArticle} from "./store";
 import {Typography, Card, Icon, Row, Col, Tag, Divider} from 'antd';
+import ReactMarkdown from 'react-markdown'
 
 class Article extends React.Component {
     static async getInitialProps({query, reduxStore}) {
@@ -27,8 +28,9 @@ class Article extends React.Component {
                             </Col>)}
                     </Row>
                     <Divider/>
-                    <div dangerouslySetInnerHTML={{__html: this.props.article.bodyHtml}}>
-                    </div>
+                    <ReactMarkdown
+                        source={this.props.article.body}
+                    />
                 </Typography>
             </Card>
         )
