@@ -43,5 +43,9 @@
     "redux-thunk": "^2.3.0",
     "tocbot": "^4.5.0",
     "url-loader": "^1.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-plugin-react": "^7.12.4"
   }
 }
