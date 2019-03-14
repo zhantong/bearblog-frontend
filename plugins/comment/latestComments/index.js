@@ -1,9 +1,10 @@
 import React from "react";
-import {requestLatestComments} from "./store";
-import {connect} from "react-redux";
-import {Collapse, List} from 'antd'
-import {buildArticleUrl} from "../../article/article";
+import { requestLatestComments } from "./store";
+import { connect } from "react-redux";
+import { Collapse, List, Typography } from 'antd'
+import { buildArticleUrl } from "../../article/article";
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 
 class LatestComments extends React.Component {
 
@@ -30,10 +31,18 @@ class LatestComments extends React.Component {
                                             {item.author.name}
                                             评论了
                                             <Link as={articleUrl.as}
-                                                  href={articleUrl.href}><a>《{item.to.title}》</a></Link>
+                                                href={articleUrl.href}><a>《{item.to.title}》</a></Link>
                                         </>
                                     }
-                                    description={item.body_html}
+                                    description={
+                                        <Typography.Text style={{ 'word-break': 'break-all' }}>
+                                            <ReactMarkdown
+                                                source={item.body}
+                                                disallowedTypes={['paragraph']}
+                                                unwrapDisallowed
+                                            />
+                                        </Typography.Text>
+                                    }
                                 />
                             </List.Item>
                         }}
@@ -45,8 +54,8 @@ class LatestComments extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {latestComments} = state.latestComments;
-    return {latestComments}
+    const { latestComments } = state.latestComments;
+    return { latestComments }
 }
 
 function mapDispatchToProps(dispatch) {
