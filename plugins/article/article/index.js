@@ -102,7 +102,7 @@ const Meta = ({meta}) => {
 };
 
 function mapStateToProps(state) {
-    const {article} = state.article;
+    const {article} = state['article.article'];
     return {article}
 }
 

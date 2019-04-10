@@ -46,7 +46,7 @@ class Toc extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {article} = state.article;
+    const {article} = state['article.article'];
     return {article}
 }
 

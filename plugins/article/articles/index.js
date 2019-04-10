@@ -78,7 +78,7 @@ const Meta = ({ id, meta }) => {
 };
 
 function mapStateToProps(state) {
-  const { articles } = state.articles;
+  const { articles } = state['article.articles'];
   return { articles };
 }
 

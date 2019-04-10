@@ -11,7 +11,7 @@ export function initializeStore(initialState = exampleInitialState) {
   for (let plugin of pluginManager.plugins) {
     for (let component of plugin.components) {
       if (component.reducer) {
-        reducers[component.slug] = component.reducer;
+        reducers[`${plugin.id}.${component.slug}`] = component.reducer;
       }
     }
   }

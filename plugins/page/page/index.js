@@ -24,7 +24,7 @@ class Page extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {page} = state.page;
+    const {page} = state['page.page'];
     return {page}
 }
 

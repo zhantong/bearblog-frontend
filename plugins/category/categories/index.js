@@ -40,7 +40,7 @@ class Categories extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const {categories} = state.categories;
+    const {categories} = state['category.categories'];
     return {categories}
 }
 

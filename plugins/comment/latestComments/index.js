@@ -54,7 +54,7 @@ class LatestComments extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const { latestComments } = state.latestComments;
+    const { latestComments } = state['comment.latestComments'];
     return { latestComments }
 }
 

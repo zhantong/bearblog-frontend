@@ -1,7 +1,7 @@
 import React from "react";
 import {requestComments, toggleReply, submitReply} from "./store";
 import {connect} from "react-redux";
-import {Comment} from "antd";
+import {Comment, Typography} from "antd";
 import ReplyForm from './ReplyForm'
 
 class Comments extends React.Component {
@@ -39,7 +39,13 @@ class Comments extends React.Component {
                         <Comment
                             actions={[<span onClick={() => this.reply(comment.comment.id)}>回复</span>]}
                             author={comment.comment.author.name}
-                            content={<div dangerouslySetInnerHTML={{__html: comment.comment.bodyHtml}}/>}
+                            content={
+                                <Typography>
+                                    <Typography.Paragraph>
+                                        {comment.comment.body}
+                                    </Typography.Paragraph>
+                                </Typography>
+                        }
                             datetime={comment.comment.timestamp}
                         >
                             {replyCommentId === comment.comment.id &&
@@ -70,8 +76,8 @@ class Comments extends React.Component {
 
 
 function mapStateToProps(state) {
-    const {article} = state.article;
-    const {comments, replyCommentId} = state.comments;
+    const {article} = state['article.article'];
+    const {comments, replyCommentId} = state['comment.comments'];
     return {article, comments, replyCommentId}
 }
 
