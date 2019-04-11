@@ -3,6 +3,7 @@ import categoryConfig from "./category";
 import commentConfig from "./comment";
 import pageConfig from "./page";
 import tocConfig from "./toc";
+import viewCountConfig from "./viewCount";
 
 class Manager {
   constructor() {
@@ -13,6 +14,7 @@ class Manager {
     this.register(commentConfig);
     this.register(pageConfig);
     this.register(tocConfig);
+    this.register(viewCountConfig);
   }
 
   register(config) {
