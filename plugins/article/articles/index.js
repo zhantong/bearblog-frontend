@@ -5,7 +5,7 @@ import { requestArticleList } from "./store";
 import { buildArticleUrl } from "../article";
 import Link from "next/link";
 import pluginManager from "../../../plugins";
-import Timestamp from "./Timestamp";
+import Timestamp from "../Timestamp";
 
 class Articles extends React.Component {
   constructor(props) {
