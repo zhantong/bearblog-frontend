@@ -23,7 +23,7 @@ export const reducer = (state = {}, action) => {
 export const requestLatestComments = () => async dispatch => {
     dispatch({type: actionTypes.REQUEST_LATEST_COMMENTS});
     const res = await request({
-        url: 'plugin/comment/latestComments',
+        url: 'latestComments',
         method: 'GET'
     });
     dispatch({type: actionTypes.RECEIVE_LATEST_COMMENTS, latestComments: res.comments})
