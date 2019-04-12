@@ -4,6 +4,7 @@ import commentConfig from "./comment";
 import pageConfig from "./page";
 import tocConfig from "./toc";
 import viewCountConfig from "./viewCount";
+import tagConfig from "./tag";
 
 class Manager {
   constructor() {
@@ -15,6 +16,7 @@ class Manager {
     this.register(pageConfig);
     this.register(tocConfig);
     this.register(viewCountConfig);
+    this.register(tagConfig);
   }
 
   register(config) {

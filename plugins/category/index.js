@@ -15,6 +15,9 @@ export default {
     article: {
       list: {
         component: ArticleList
+      },
+      article: {
+        component: ArticleList
       }
     }
   }
