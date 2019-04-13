@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { requestArticle } from "./store";
+import { requestArticle, didRenderArticle } from "./store";
 import { Typography, Card, Divider } from "antd";
 import { Grid, Row, Col } from "react-flexbox-grid";
 import ReactMarkdown from "react-markdown";
@@ -25,6 +25,12 @@ class Article extends React.Component {
     const { number } = query;
     await reduxStore.dispatch(requestArticle(number));
     return {};
+  }
+  componentDidMount() {
+    this.props.didRenderArticle(this.props.article);
+  }
+  componentDidUpdate() {
+    this.props.didRenderArticle(this.props.article);
   }
 
   render() {
@@ -73,6 +79,11 @@ function mapStateToProps(state) {
   const { article } = state["article.article"];
   return { article };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    didRenderArticle: article => dispatch(didRenderArticle(article))
+  };
+}
 
 export function buildArticleUrl(number) {
   return {
@@ -81,4 +92,7 @@ export function buildArticleUrl(number) {
   };
 }
 
-export default connect(mapStateToProps)(Article);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Article);

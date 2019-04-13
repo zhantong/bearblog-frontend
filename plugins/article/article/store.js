@@ -1,31 +1,35 @@
-import request from '../../../api/client'
+import request from "../../../api/client";
 
 export const actionTypes = {
-    REQUEST_ARTICLE: 'REQUEST_ARTICLE',
-    RECEIVE_ARTICLE: 'RECEIVE_ARTICLE'
+  REQUEST_ARTICLE: "REQUEST_ARTICLE",
+  RECEIVE_ARTICLE: "RECEIVE_ARTICLE",
+  DID_RENDER_ARTICLE: "DID_RENDER_ARTICLE"
 };
 
 // REDUCERS
 
 export const reducer = (state = {}, action) => {
-    switch (action.type) {
-        case actionTypes.RECEIVE_ARTICLE:
-            return Object.assign({}, state, {
-                article: action.article
-            });
-        default:
-            return state
-    }
+  switch (action.type) {
+    case actionTypes.RECEIVE_ARTICLE:
+      return Object.assign({}, state, {
+        article: action.article
+      });
+    default:
+      return state;
+  }
 };
 
 // ACTIONS
 
-export const requestArticle = (number) => async dispatch => {
-    dispatch({type: actionTypes.REQUEST_ARTICLE});
-    const res = await request({
-        url: `article/${number}`,
-        method: 'GET'
-    });
-    dispatch({type: actionTypes.RECEIVE_ARTICLE, article: res})
+export const requestArticle = number => async dispatch => {
+  dispatch({ type: actionTypes.REQUEST_ARTICLE });
+  const res = await request({
+    url: `article/${number}`,
+    method: "GET"
+  });
+  dispatch({ type: actionTypes.RECEIVE_ARTICLE, article: res });
 };
 
+export const didRenderArticle = article => dispatch => {
+  dispatch({ type: actionTypes.DID_RENDER_ARTICLE, article });
+};
