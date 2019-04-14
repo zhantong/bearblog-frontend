@@ -2,15 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import Layout from "../comps/Layout.js";
 import { configWidgets } from "../store/actions";
-import layoutConfig from "../layoutConfig";
 import { Row, Col, Affix } from "antd";
 import hljs from "highlight.js";
 import "highlight.js/styles/default.css";
 import pluginManager from "../plugins";
+import getConfig from "next/config";
 
 class Index extends React.Component {
   static async getInitialProps(props) {
-    const config = layoutConfig[props.query._type || "home"];
+    const config = getConfig().publicRuntimeConfig.layout.page[
+      props.query._type || "home"
+    ];
     await pluginManager
       .getComponent(config.main.plugin, config.main.component)
       .main.getInitialProps(props);

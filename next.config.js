@@ -18,5 +18,6 @@ module.exports = withCss({
     });
 
     return config;
-  }
+  },
+  publicRuntimeConfig: require("./config.json")
 });
