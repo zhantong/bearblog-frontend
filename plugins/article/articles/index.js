@@ -29,13 +29,18 @@ class Articles extends React.Component {
             <List.Item
               actions={[
                 <Timestamp data={item.timestamp} />,
-                ...pluginManager.getAttaches("article").map(attach => {
-                  if (attach.attach.list) {
-                    const Element = attach.attach.list.component;
+                ...Object.keys(item.plugin).map(pluginId => {
+                  const attach = pluginManager.getAttach(
+                    pluginId,
+                    "article",
+                    "listMeta"
+                  );
+                  if (attach) {
+                    const Element = attach.component;
                     return (
                       <Element
                         article={item}
-                        data={item && item.plugin[attach.pluginId]}
+                        data={item && item.plugin[pluginId]}
                       />
                     );
                   }

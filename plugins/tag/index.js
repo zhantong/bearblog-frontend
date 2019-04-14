@@ -5,7 +5,7 @@ export default {
   components: [],
   attach: {
     article: {
-      article: {
+      articleMeta: {
         component: Article
       }
     }

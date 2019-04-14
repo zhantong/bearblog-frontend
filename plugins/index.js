@@ -5,6 +5,7 @@ import pageConfig from "./page";
 import tocConfig from "./toc";
 import viewCountConfig from "./viewCount";
 import tagConfig from "./tag";
+import delve from "dlv";
 
 class Manager {
   constructor() {
@@ -31,6 +32,13 @@ class Manager {
       }
     });
     return result;
+  }
+  getAttach(srcPluginId, destPluginId, destAttachId) {
+    for (let plugin of this.plugins) {
+      if (plugin.id === srcPluginId) {
+        return delve(plugin, ["attach", destPluginId, destAttachId]);
+      }
+    }
   }
   getComponent(pluginId, componentSlug) {
     for (let plugin of this.plugins) {

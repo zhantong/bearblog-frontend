@@ -47,14 +47,19 @@ class Article extends React.Component {
               <Col xs>
                 <Timestamp data={article.timestamp} />
               </Col>
-              {pluginManager.getAttaches("article").map(attach => {
-                if (attach.attach.article) {
-                  const Element = attach.attach.article.component;
+              {Object.keys(article.plugin).map(pluginId => {
+                const attach = pluginManager.getAttach(
+                  pluginId,
+                  "article",
+                  "articleMeta"
+                );
+                if (attach) {
+                  const Element = attach.component;
                   return (
                     <Col xs>
                       <Element
                         article={article}
-                        data={article.plugin[attach.pluginId]}
+                        data={article.plugin[pluginId]}
                       />
                     </Col>
                   );

@@ -5,10 +5,10 @@ export default {
   components: [],
   attach: {
     article: {
-      list: {
+      listMeta: {
         component: ArticleList
       },
-      article: {
+      articleMeta: {
         component: ArticleList
       }
     }

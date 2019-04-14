@@ -20,10 +20,10 @@ export default {
   ],
   attach: {
     article: {
-      list: {
+      listMeta: {
         component: ArticleList
       },
-      article: {
+      articleMeta: {
         component: ArticleList
       }
     }
