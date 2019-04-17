@@ -1,4 +1,4 @@
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.less'
 import Navbar from "./Navbar";
 import {Layout} from 'antd';
 import React from "react";
