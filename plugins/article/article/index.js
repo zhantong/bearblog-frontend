@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { requestArticle, didRenderArticle } from "./store";
-import { Typography, Card, Divider } from "antd";
-import { Grid, Row, Col } from "react-flexbox-grid";
+import { Typography, Card, Divider, Row, Col } from "antd";
 import ReactMarkdown from "react-markdown";
 import pluginManager from "../../../plugins";
 import Timestamp from "../Timestamp";
@@ -39,34 +38,32 @@ class Article extends React.Component {
       return null;
     }
     return (
-      <Card>
+      <Card style={{ marginBottom: 10 }}>
         <Typography>
           <Typography.Title>{article.title}</Typography.Title>
-          <Grid fluid>
-            <Row between="xs">
-              <Col xs>
-                <Timestamp data={article.timestamp} />
-              </Col>
-              {Object.keys(article.plugin).map(pluginId => {
-                const attach = pluginManager.getAttach(
-                  pluginId,
-                  "article",
-                  "articleMeta"
+          <Row justify="space-between" type="flex">
+            <Col>
+              <Timestamp data={article.timestamp} />
+            </Col>
+            {Object.keys(article.plugin).map(pluginId => {
+              const attach = pluginManager.getAttach(
+                pluginId,
+                "article",
+                "articleMeta"
+              );
+              if (attach) {
+                const Element = attach.component;
+                return (
+                  <Col>
+                    <Element
+                      article={article}
+                      data={article.plugin[pluginId]}
+                    />
+                  </Col>
                 );
-                if (attach) {
-                  const Element = attach.component;
-                  return (
-                    <Col xs>
-                      <Element
-                        article={article}
-                        data={article.plugin[pluginId]}
-                      />
-                    </Col>
-                  );
-                }
-              })}
-            </Row>
-          </Grid>
+              }
+            })}
+          </Row>
           <Divider />
           <ReactMarkdown
             source={article.body}
