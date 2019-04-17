@@ -6,7 +6,7 @@ class Timestamp extends Component {
   render() {
     return (
       <>
-        <Icon type="heart" style={{ marginRight: 8 }} />
+        <Icon type="calendar" style={{ marginRight: 8 }} />
         <Moment format="YYYY-MM-DD">{this.props.data}</Moment>
       </>
     );
