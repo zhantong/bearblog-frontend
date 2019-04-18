@@ -1,19 +1,16 @@
-const withLessExcludeAntd = require("./next-less.config.js");
-const antdCustom = require("./assets/antd-custom.json");
+const withLess = require("./next-less.config.js");
 const withCss = require("@zeit/next-css");
-
-if (typeof require !== "undefined") {
-  require.extensions[".less"] = file => {};
-}
-
-module.exports = withLessExcludeAntd(
+const antdCustom = require("./assets/antd-custom.json");
+module.exports = withLess(
   withCss({
-    cssModules: true,
     cssLoaderOptions: {
-      importLoaders: 1,
-      localIdentName: "[local]___[hash:base64:5]"
+      localIdentName: "[local]_[hash:base64:5]"
     },
     lessLoaderOptions: {
+      cssModules: true,
+      javascriptEnabled: true
+    },
+    antdLessLoaderOptions: {
       javascriptEnabled: true,
       modifyVars: antdCustom
     },

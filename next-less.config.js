@@ -11,17 +11,14 @@ module.exports = (nextConfig = {}) => {
 
       const { dev, isServer } = options;
       const {
-        cssModules,
         cssLoaderOptions,
-        postcssLoaderOptions,
-        lessLoaderOptions = {}
+        lessLoaderOptions = {},
+        antdLessLoaderOptions = {}
       } = nextConfig;
 
       options.defaultLoaders.less = cssLoaderConfig(config, {
-        extensions: ["less"],
-        cssModules,
+        cssModules: lessLoaderOptions.cssModules,
         cssLoaderOptions,
-        postcssLoaderOptions,
         dev,
         isServer,
         loaders: [
@@ -34,27 +31,26 @@ module.exports = (nextConfig = {}) => {
 
       config.module.rules.push({
         test: /\.less$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: options.defaultLoaders.less
       });
+      options.defaultLoaders.less = cssLoaderConfig(config, {
+        cssModules: antdLessLoaderOptions.cssModules,
+        cssLoaderOptions,
+        dev,
+        isServer,
+        loaders: [
+          {
+            loader: "less-loader",
+            options: antdLessLoaderOptions
+          }
+        ]
+      });
 
-      // 我们禁用了antd的cssModules
       config.module.rules.push({
         test: /\.less$/,
-        include: /node_modules/,
-        use: cssLoaderConfig(config, {
-          extensions: ["less"],
-          cssModules: false,
-          cssLoaderOptions: {},
-          dev,
-          isServer,
-          loaders: [
-            {
-              loader: "less-loader",
-              options: lessLoaderOptions
-            }
-          ]
-        })
+        include: [/node_module/],
+        use: options.defaultLoaders.less
       });
 
       if (typeof nextConfig.webpack === "function") {
