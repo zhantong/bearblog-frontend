@@ -19,14 +19,6 @@ app.prepare()
             return app.render(req.req, res.res, '/index', queryParams)
         });
 
-        server.get('/category/:slug', (req, res) => {
-            const queryParams = {
-                category: req.params.slug
-            };
-
-            return app.render(req.req, res.res, '/index', queryParams)
-        });
-
         server.get('/p/:slug', (req, res) => {
             const queryParams = {
                 _type: 'page',
@@ -35,6 +27,10 @@ app.prepare()
 
             return app.render(req.req, res.res, '/index', queryParams)
         });
+
+        server.get('/articles',(req,res)=>{
+            return app.render(req.req, res.res, '/index', req.query)
+        })
 
         server.get('/*', (req, res) => {
             return handle(req.req, res.res)

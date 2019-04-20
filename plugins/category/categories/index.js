@@ -24,7 +24,7 @@ class Categories extends React.Component {
                             <List.Item>
                                 <List.Item.Meta
                                     title={
-                                        <Link as={`/category/${item.slug}`} href={`/index?category=${item.slug}`}>
+                                        <Link as={`/articles?category=${item.slug}`} href={`/index?category=${item.slug}`}>
                                             <a>{item.name}</a>
                                         </Link>
                                     }
