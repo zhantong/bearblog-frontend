@@ -60,20 +60,20 @@ class Index extends React.Component {
     return (
       <Layout>
         <Row type="flex" gutter={8}>
-          <Col span={4}>
+          <Col xs={0} sm={0} md={6} lg={6} xl={4} style={{ marginTop: "8px" }}>
             <Affix>
               {LeftWidgets.map(Widget => (
                 <Widget />
               ))}
             </Affix>
           </Col>
-          <Col span={16}>
+          <Col xs={24} sm={24} md={18} lg={18} xl={16}>
             <MainWidget />
             {MainBottomWidgets.map(Widget => (
               <Widget />
             ))}
           </Col>
-          <Col span={4}>
+          <Col xs={0} sm={0} md={0} lg={0} xl={4} style={{ marginTop: "8px" }}>
             {RightWidgets.map(Widget => (
               <Widget />
             ))}
