@@ -36,7 +36,7 @@ class Articles extends React.Component {
               <List.Item
                 actions={[
                   <Timestamp data={item.timestamp} />,
-                  ...Object.keys(item.plugin).map(pluginId => {
+                  ...Object.keys(item.plugin).reduce((result, pluginId) => {
                     const attach = pluginManager.getAttach(
                       pluginId,
                       "article",
@@ -44,14 +44,15 @@ class Articles extends React.Component {
                     );
                     if (attach) {
                       const Element = attach.component;
-                      return (
+                      result.push(
                         <Element
                           article={item}
                           data={item && item.plugin[pluginId]}
                         />
                       );
                     }
-                  })
+                    return result;
+                  }, [])
                 ]}
               >
                 <List.Item.Meta
