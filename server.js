@@ -1,5 +1,6 @@
 const fastify = require('fastify');
 const Next = require('next');
+const fs=require('fs')
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -9,6 +10,7 @@ const handle = app.getRequestHandler();
 app.prepare()
     .then(() => {
         const server = fastify();
+        server.register(require('fastify-cors'))
 
         server.get('/a/:number', (req, res) => {
             const queryParams = {
@@ -35,6 +37,23 @@ app.prepare()
         server.get('/*', (req, res) => {
             return handle(req.req, res.res)
         });
+        server.get('/config',(req,res)=>{
+            const config=JSON.parse(fs.readFileSync('./config.json'))
+            if(req.headers.authorization!==config.SECRET_KEY){
+                res.code(401).send()
+            }else{
+                res.send(config)
+            }
+        })
+        server.post('/config',(req,res)=>{
+            const config=JSON.parse(fs.readFileSync('./config.json'))
+            if(req.headers.authorization!==config.SECRET_KEY){
+                res.code(401).send()
+            }else{
+                fs.writeFileSync('./config.json', JSON.stringify(req.body,null,2))
+                res.send({message:'OK'})
+            }
+        })
 
         server.listen(port, (err) => {
             if (err) throw err;

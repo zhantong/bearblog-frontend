@@ -1,4 +1,5 @@
 {
+  "SECRET_KEY": "REALLY_SECRET_KEY",
   "layout": {
     "page": {
       "article": {
