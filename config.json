@@ -1,6 +1,7 @@
 {
   "SECRET_KEY": "REALLY_SECRET_KEY",
   "name": "Penguin",
+  "beianSerial": "苏ICP备16012812号-1",
   "layout": {
     "page": {
       "article": {
