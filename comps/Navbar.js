@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { requestNavbar } from "../store/actions";
-import { Layout, Menu, Row, Col, Typography } from "antd";
+import { Layout, Menu, Row, Col, Typography, Input } from "antd";
 import Link from "next/link";
 import { buildPageUrl } from "../plugins/page/page";
 import getConfig from "next/config";
+import Router from "next/router";
 
 class Navbar extends React.Component {
   state = {
@@ -42,7 +43,7 @@ class Navbar extends React.Component {
               </Link>
             </Typography.Text>
           </Col>
-          <Col span={20}>
+          <Col span={16}>
             <Menu mode="horizontal" theme="dark" style={{ lineHeight: "64px" }}>
               {pages.map(page => {
                 const pageUrl = buildPageUrl(page.slug);
@@ -55,6 +56,17 @@ class Navbar extends React.Component {
                 );
               })}
             </Menu>
+          </Col>
+          <Col span={4}>
+            <Input.Search
+              placeholder="搜索"
+              onSearch={value =>
+                Router.push(
+                  `/index?search=${value}`,
+                  `/articles?search=${value}`
+                )
+              }
+            />
           </Col>
         </Row>
       </Layout.Header>
