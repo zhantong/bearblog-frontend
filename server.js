@@ -54,6 +54,9 @@ app.prepare()
                 res.send({message:'OK'})
             }
         })
+        server.get('/attachments/*',(req,res)=>{
+            res.redirect(`https://127.0.0.1:5000/attachments/${req.params['*']}`)
+        })
 
         server.listen(port, (err) => {
             if (err) throw err;
