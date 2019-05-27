@@ -4,6 +4,8 @@ const cors = require("@koa/cors");
 var bodyParser = require("koa-bodyparser");
 const Next = require("next");
 const fs = require("fs");
+const axios = require("axios");
+const https = require("https");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -17,10 +19,34 @@ app.prepare().then(() => {
   const router = new Router();
 
   router.get("/a/:number", async ctx => {
+    let number = ctx.params.number;
     const queryParams = {
       _type: "article",
-      number: ctx.params.number
+      number
     };
+    var view_count_article_numbers = ctx.cookies.get(
+      "view_count_article_numbers"
+    );
+    if (!view_count_article_numbers) {
+      view_count_article_numbers = [];
+    } else {
+      view_count_article_numbers = JSON.parse(view_count_article_numbers);
+    }
+    if (!view_count_article_numbers.includes(number)) {
+      const config = JSON.parse(fs.readFileSync("./config.json"));
+      axios({
+        url: `https://127.0.0.1:5000/api/article/${number}/viewCount`,
+        httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+        headers: {
+          Authorization: config.REST_SECRET_KEY
+        }
+      });
+      view_count_article_numbers.push(number);
+      ctx.cookies.set(
+        "view_count_article_numbers",
+        JSON.stringify(view_count_article_numbers)
+      );
+    }
 
     await app.render(ctx.req, ctx.res, "/index", queryParams);
     ctx.respond = false;
