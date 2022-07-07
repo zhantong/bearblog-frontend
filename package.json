@@ -33,7 +33,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "less": "^3.9.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "next": "^8.0.3",
     "patch-package": "^6.0.5",
     "query-string": "^6.4.2",
